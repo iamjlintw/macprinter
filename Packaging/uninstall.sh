@@ -32,6 +32,7 @@ done
 # 資料夾全空時才刪掉
 find "$SPOOL" -mindepth 1 -maxdepth 1 -type d -empty -delete 2>/dev/null || true
 rmdir "$SPOOL" 2>/dev/null || true
+rm -rf /Library/Logs/macprinter
 
 echo "已移除「存成圖片」印表機"
 [ -d "$SPOOL" ] && echo "已產生的圖片仍保留在 $SPOOL"

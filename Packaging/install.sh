@@ -13,6 +13,16 @@ LABEL="io.github.iamjlintw.macprinter.agent"
 AGENT_PLIST="/Library/LaunchAgents/${LABEL}.plist"
 
 [ "$(id -u)" = 0 ] || { echo "請用 sudo 執行" >&2; exit 1; }
+
+# 逐行記錄到安裝記錄檔，方便追查失敗原因（只記指令與路徑，不含文件內容）
+LOG_DIR="/Library/Logs/macprinter"
+mkdir -p "$LOG_DIR"
+exec 3>"$LOG_DIR/install.log"
+chmod 0644 "$LOG_DIR/install.log"
+echo "開始：$(date '+%Y-%m-%d %H:%M:%S') 參數：$*" >&3
+trap 'echo "結束代碼：$?" >&3' EXIT
+BASH_XTRACEFD=3
+set -x
 APP="${1:?需要 macprinter.app 的路徑}"
 CALLER_UID="${2:-${SUDO_UID:-}}"
 APP="$(cd "$APP" && pwd -P)"
