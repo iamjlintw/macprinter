@@ -59,9 +59,12 @@ sudo /Applications/macprinter.app/Contents/Resources/uninstall.sh
 需要 Xcode 15 以上（Swift 5.9）。
 
 ```sh
-swift test                  # 單元測試
-scripts/build-app.sh 0.1.0  # 產出 build/macprinter.app 與 build/macprinter-0.1.0.dmg
+swift test                            # 單元測試
+scripts/build-app.sh 0.1.0            # 只產出 build/macprinter-0.1.0.dmg
+scripts/build-app.sh --install 0.1.0  # 另外用新版覆蓋 /Applications/macprinter.app
 ```
+
+建置時組裝 `.app` 的暫存資料夾用完就刪掉，`build/` 裡只留 `.dmg`，系統裡只會有「應用程式」那一份 macprinter。
 
 ## 運作方式
 
