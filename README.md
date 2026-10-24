@@ -1,5 +1,8 @@
 # macprinter
 
+> **僅適用於 macOS**（macOS 13 Ventura 以上）。本工具依賴 macOS 的 CUPS 列印系統、CoreGraphics 與 launchd，
+> 無法在 Windows 或 Linux 上使用。Windows 使用者可以直接用 PDFCreator、PDF24 等現成的虛擬印表機。
+
 在 macOS 上多一台「**存成圖片**」印表機：任何 App 按 ⌘P 選它列印，每一頁都會直接存成 PNG，不用再手動轉檔。
 用起來就像 Windows 上的 PDFCreator、PDF24 這類虛擬印表機。
 
