@@ -1,8 +1,11 @@
 import AppKit
 import MacPrinterCore
+import os
 
 /// 以系統管理員密碼對話框執行 App 內附的安裝／移除腳本（`Contents/Resources/*.sh`）。
 enum PrinterInstaller {
+    private static let logger = Logger(subsystem: MacPrinter.bundleID, category: "installer")
+
     enum Outcome {
         case succeeded
         case cancelled
@@ -51,8 +54,11 @@ enum PrinterInstaller {
         var error: NSDictionary?
         NSAppleScript(source: source)?.executeAndReturnError(&error)
         guard let error else { return .succeeded }
-        if (error[NSAppleScript.errorNumber] as? Int) == -128 { return .cancelled }
-        return .failed(error[NSAppleScript.errorMessage] as? String ?? "未知錯誤")
+        let number = error[NSAppleScript.errorNumber] as? Int
+        if number == -128 { return .cancelled }
+        let detail = error[NSAppleScript.errorMessage] as? String ?? "未知錯誤"
+        logger.error("管理員腳本失敗（代碼 \(number ?? 0, privacy: .public)）：\(detail, privacy: .public)")
+        return .failed("\(detail)（代碼 \(number.map(String.init) ?? "?")）")
     }
 
     /// AppleScript 字串常值的跳脫。

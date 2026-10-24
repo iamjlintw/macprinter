@@ -3,6 +3,7 @@
 # 用法：sudo install.sh <macprinter.app 路徑> [呼叫者 UID]
 # App 會透過系統管理員密碼對話框呼叫本腳本；也可以在終端機用 sudo 直接執行。
 set -euo pipefail
+trap 'echo "安裝失敗：install.sh 第 $LINENO 行（代碼 $?）：$BASH_COMMAND" >&2' ERR
 
 QUEUE="macprinter"
 DISPLAY_NAME="存成圖片"

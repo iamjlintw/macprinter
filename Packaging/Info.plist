@@ -26,6 +26,16 @@
 	<string>13.0</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>macprinter 需要把列印出來的圖片存到你選的輸出資料夾。</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>macprinter 需要把列印出來的圖片存到你選的輸出資料夾。</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>macprinter 需要把列印出來的圖片存到你選的輸出資料夾。</string>
+	<key>NSRemovableVolumesUsageDescription</key>
+	<string>macprinter 需要把列印出來的圖片存到你選的外接磁碟或記憶卡。</string>
+	<key>NSNetworkVolumesUsageDescription</key>
+	<string>macprinter 需要把列印出來的圖片存到你選的網路磁碟。</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2026 Jethro Lin. MIT License.</string>
 </dict>

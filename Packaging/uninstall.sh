@@ -3,6 +3,7 @@
 # 用法：sudo uninstall.sh
 # 已產生的圖片（/Users/Shared/macprinter/<帳號>/）不會刪除。
 set -euo pipefail
+trap 'echo "移除失敗：uninstall.sh 第 $LINENO 行（代碼 $?）：$BASH_COMMAND" >&2' ERR
 
 QUEUE="macprinter"
 BACKEND="/usr/libexec/cups/backend/macprinter"
