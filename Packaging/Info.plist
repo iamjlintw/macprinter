@@ -8,6 +8,8 @@
 	<string>macprinter</string>
 	<key>CFBundleExecutable</key>
 	<string>macprinter</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
 	<string>io.github.iamjlintw.macprinter</string>
 	<key>CFBundleInfoDictionaryVersion</key>

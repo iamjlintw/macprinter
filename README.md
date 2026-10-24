@@ -69,6 +69,8 @@ scripts/build-app.sh --install 0.1.0  # 另外用新版覆蓋 /Applications/macp
 
 建置時組裝 `.app` 的暫存資料夾用完就刪掉，`build/` 裡只留 `.dmg`，系統裡只會有「應用程式」那一份 macprinter。
 
+App 圖示由 `scripts/make-icon.swift` 在建置時用 CoreGraphics 畫出，再轉成 `AppIcon.icns`；要改圖示就改這支腳本。
+
 ## 運作方式
 
 | 元件 | 位置 | 說明 |

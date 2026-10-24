@@ -36,6 +36,17 @@ cp "$BIN/macprinter" "$APP/Contents/MacOS/macprinter"
 cp "$BIN/macprinter-backend" "$APP/Contents/MacOS/macprinter-backend"
 cp Packaging/macprinter.ppd Packaging/install.sh Packaging/uninstall.sh "$APP/Contents/Resources/"
 chmod 0755 "$APP/Contents/Resources/install.sh" "$APP/Contents/Resources/uninstall.sh"
+
+# App 圖示：畫 1024px 原圖，縮成各尺寸後轉 .icns
+ICONSET="$STAGE/AppIcon.iconset"
+mkdir -p "$ICONSET"
+swift scripts/make-icon.swift "$STAGE/icon-1024.png"
+for px in 16 32 128 256 512; do
+  sips -z "$px" "$px" "$STAGE/icon-1024.png" --out "$ICONSET/icon_${px}x${px}.png" >/dev/null
+  sips -z "$((px * 2))" "$((px * 2))" "$STAGE/icon-1024.png" --out "$ICONSET/icon_${px}x${px}@2x.png" >/dev/null
+done
+iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/AppIcon.icns"
+rm -rf "$ICONSET" "$STAGE/icon-1024.png"
 sed -e "s/__VERSION__/$VERSION/" -e "s/__BUILD__/$BUILD_NUMBER/" Packaging/Info.plist > "$APP/Contents/Info.plist"
 plutil -lint "$APP/Contents/Info.plist" >/dev/null
 
