@@ -26,7 +26,8 @@ enum Notifier {
         }
     }
 
-    private final class ResumeOnce {
+    /// 以 lock 保護，可以安全地跨執行緒使用。
+    private final class ResumeOnce: @unchecked Sendable {
         private let lock = NSLock()
         private var continuation: CheckedContinuation<Void, Never>?
 

@@ -48,16 +48,13 @@ struct ContentView: View {
             Section(Strings.sectionLog) {
                 Button(Strings.buttonShowLog, action: model.loadLog)
             }
-
-            if let message = model.message {
-                Text(message)
-                    .font(.callout)
-                    .accessibilityAddTraits(.updatesFrequently)
-            }
         }
         .formStyle(.grouped)
-        .frame(minWidth: 520, minHeight: 420)
+        .frame(minWidth: 520, minHeight: 460)
         .onAppear(perform: model.refresh)
+        .alert(model.message ?? "", isPresented: Binding(get: { model.message != nil }, set: { if !$0 { model.message = nil } })) {
+            Button(Strings.buttonOK, role: .cancel) { model.message = nil }
+        }
         .sheet(isPresented: Binding(get: { model.logText != nil }, set: { if !$0 { model.logText = nil } })) {
             LogView(text: model.logText ?? "") { model.logText = nil }
         }

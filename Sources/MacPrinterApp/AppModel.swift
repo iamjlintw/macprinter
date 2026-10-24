@@ -43,8 +43,22 @@ final class AppModel: ObservableObject {
         panel.allowsMultipleSelection = false
         panel.prompt = Strings.chooseFolderPrompt
         panel.message = Strings.chooseFolderMessage
-        panel.directoryURL = outputFolder
-        guard panel.runModal() == .OK, let url = panel.url else { return }
+        panel.directoryURL = FileManager.default.fileExists(atPath: outputFolder.path)
+            ? outputFolder
+            : FileManager.default.homeDirectoryForCurrentUser
+        NSApp.activate(ignoringOtherApps: true)
+        // 附在主視窗上，避免對話框跑到其他視窗後面
+        if let window = NSApp.keyWindow ?? NSApp.mainWindow ?? NSApp.windows.first(where: \.isVisible) {
+            panel.beginSheetModal(for: window) { [weak self] response in
+                guard response == .OK, let url = panel.url else { return }
+                Task { @MainActor in self?.applyChosenFolder(url) }
+            }
+        } else if panel.runModal() == .OK, let url = panel.url {
+            applyChosenFolder(url)
+        }
+    }
+
+    private func applyChosenFolder(_ url: URL) {
         guard FileManager.default.isWritableFile(atPath: url.path) else {
             message = Strings.folderNotWritable
             return

@@ -38,6 +38,7 @@ public enum Strings {
     public static let buttonOpenFolder = "打開資料夾"
     public static let buttonShowLog = "查看記錄"
     public static let buttonClose = "關閉"
+    public static let buttonOK = "好"
     public static let outputDefaultHint = "預設資料夾"
     public static let outputCustomHint = "自訂資料夾：列印完成後由背景程式搬過來"
     public static let chooseFolderPrompt = "選擇"
